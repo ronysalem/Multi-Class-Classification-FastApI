@@ -2,7 +2,8 @@ from fastapi import FastAPI,Request
 import uvicorn
 import numpy as np 
 from transformers import AutoTokenizer,AutoModelForSequenceClassification
-import torch 
+import torch
+from os import getenv
 
 app = FastAPI()
 
@@ -50,7 +51,8 @@ async def read_root(request: Request):
     return response
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host = '0.0.0.0', port = 8080, reload=True)
+    port = int(getenv("PORT",8000))
+    uvicorn.run("main:app", host = '0.0.0.0', port = port, reload=True)
         
     
     
